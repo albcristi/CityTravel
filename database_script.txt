@@ -1,0 +1,32 @@
+create table City (
+id int auto_increment primary key, 
+name varchar(200) unique);
+
+
+
+create table User(
+id int auto_increment primary key,
+user_name varchar(200) unique,
+user_password varchar(200) not null);
+
+create table UserRoute(
+id int auto_increment primary key,
+user_id int not null,
+city_id int not null, 
+foreign key(user_id) references User(id) on update restrict on delete cascade,
+foreign key(city_id) references City(id) on update restrict on delete cascade)
+
+
+create table Session(
+id int auto_increment primary key,
+user_id int not null,
+token varchar(300) not null,
+ttl date not null,
+foreign key(user_id) references User(id) on update restrict on delete cascade);
+
+create table NeighbourCity(
+id int auto_increment primary key,
+origin_city  int not null,
+neighbour_city int not null,
+foreign key(origin_city) references City(id) on update restrict on delete cascade,
+foreign key(neighbour_city) references City(id) on update restrict on delete cascade);
