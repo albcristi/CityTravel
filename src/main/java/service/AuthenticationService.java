@@ -1,26 +1,29 @@
 package service;
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import model.Session;
 import model.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import repository.SessionRepository;
+import repository.SessionRepositoryImp;
 import repository.UserRepository;
+import repository.UserRepositoryImp;
 
 import java.util.Date;
 import java.util.Optional;
 
-@Service
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthenticationService {
 
-    @Autowired
-    UserRepository userRepository;
 
-    @Autowired
-    SessionRepository sessionRepository;
+    UserRepository userRepository = new UserRepositoryImp();
+
+
+    SessionRepository sessionRepository = new SessionRepositoryImp();
 
 
     public String generateSessionToken(){

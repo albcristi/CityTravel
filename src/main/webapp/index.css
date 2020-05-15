@@ -1,0 +1,35 @@
+body{
+    background-color: #39a0ca;
+}
+
+.firs-page-container{
+    display: flex;
+    justify-content: center;
+}
+
+.firs-page-container a{
+    margin-top: 15%;
+    font-family: Calibri;
+    text-decoration: none;
+    background-color: #1dbab4;
+    width: 15%;
+    text-align: center;
+    color: whitesmoke;
+    font-size: 30px;
+    padding: 4%;
+    margin-left: 3%;
+    border-radius: 10px;
+}
+
+.firs-page-container a:hover{
+    background-color: #1dbad1;
+    color: lightgray;
+}
+
+#f-page-title{
+    font-family: Calibri;
+    color: whitesmoke;
+    font-size: 40px;
+    text-align: center;
+    padding-top:3%;
+}

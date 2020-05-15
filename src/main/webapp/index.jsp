@@ -8,9 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>WOW</title>
+    <title>City Travel</title>
+      <link rel="stylesheet" type="text/css" href="index.css">
   </head>
   <body>
-  HEY
+      <p id="f-page-title">Welcome to City Travelling <br/>Please Log-In or Sign-up for free</p>
+      <div class="firs-page-container">
+          <a href="log-in/log_in.jsp">Log In</a>
+          <a href="sign-up/sign_up.jsp">Sign Up</a>
+      </div>
   </body>
 </html>
