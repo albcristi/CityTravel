@@ -56,5 +56,14 @@
         <servlet-name>CityServlet</servlet-name>
         <url-pattern>/city-servlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserRouteServlet</servlet-name>
+        <servlet-class>servlets.UserRouteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserRouteServlet</servlet-name>
+        <url-pattern>/user-route-servlet</url-pattern>
+    </servlet-mapping>
 </web-app>
 
