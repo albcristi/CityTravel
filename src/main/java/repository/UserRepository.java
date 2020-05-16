@@ -10,4 +10,6 @@ public interface UserRepository {
     void save(User user);
 
     Optional<User> getUserByUser_name(String user_name);
+
+    Optional<User> getByUserId(Integer id);
 }

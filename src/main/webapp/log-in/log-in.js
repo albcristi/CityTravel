@@ -22,6 +22,7 @@ $(document).ready( () => {
                         statusCode: {
                             200: function () {
                                 console.log("log-in: success");
+                                window.location = '../main-page/main-page.jsp'
                             },
                             400: function () {
                                 console.log("log-in: failed");

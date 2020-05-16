@@ -3,6 +3,7 @@ package service;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import model.Session;
 import model.User;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -12,6 +13,9 @@ import repository.SessionRepositoryImp;
 import repository.UserRepository;
 import repository.UserRepositoryImp;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 
@@ -74,5 +78,22 @@ public class AuthenticationService {
                 .build();
         sessionRepository.save(session);
         return session.getToken();
+    }
+
+    @SneakyThrows
+    public Optional<User> validateUserRequest(HttpServletRequest request){
+        Optional<Cookie> session_optional = Arrays.stream(request.getCookies())
+                .filter(cookie -> cookie.getName().equals("session"))
+                .findAny();
+        if(session_optional.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(userRepository.getByUserId(
+                sessionRepository.getSessionByToken(
+                        session_optional.get().getValue()
+                )
+                .get()
+                .getUser_id()
+        ).get());
     }
 }

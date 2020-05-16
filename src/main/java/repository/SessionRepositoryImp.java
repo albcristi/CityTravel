@@ -36,7 +36,7 @@ public class SessionRepositoryImp implements SessionRepository{
                     "set user_id=?, ttl=?,token=?" +
                     "where id=?");
             preparedStatement.setInt(1,session.getUser_id());
-            preparedStatement.setDate(2, (Date) session.getTtl());
+            preparedStatement.setDate(2, new Date(session.getTtl().getTime()));
             preparedStatement.setString(3,session.getToken());
             preparedStatement.setInt(4,session.getId());
             preparedStatement.execute();

@@ -62,4 +62,29 @@ public class UserRepositoryImp implements UserRepository {
         statement.close();
         return Optional.empty();
     }
+
+    @Override
+    @SneakyThrows
+    public Optional<User> getByUserId(Integer id) {
+        if(connection==null)
+            establishConnection();
+        PreparedStatement statement = connection
+                .prepareStatement("select * from user where id=?");
+        statement.setInt(1,id);
+        ResultSet resultSet = statement.executeQuery();
+        if(resultSet.next()){
+            User user = User.builder()
+                    .id(resultSet.getInt("id"))
+                    .user_name(resultSet.getString("user_name"))
+                    .user_password(resultSet.getString("user_password"))
+                    .build();
+            resultSet.close();
+            statement.close();
+            return Optional.of(user);
+        }
+        resultSet.close();
+        statement.close();
+        return Optional.empty();
+    }
+
 }
