@@ -17,10 +17,7 @@
         </div>
     </div>
     <div class="main-container">
-        <div id="current-city-container">
-            <!-- This Label will show the Current City / Station -->
-            <label id="current-city-label"></label>
-        </div>
+
         <div class="navigation-container">
             <!-- Here we should have the following buttons:
                 o previous : go back to a given station
@@ -40,6 +37,11 @@
             <div id="generate-route-container">
                 <label id="generate-route">Generate Route</label>
             </div>
+        </div>
+        <div id="current-city-container">
+            <!-- This Label will show the Current City / Station -->
+            <label id="current-city-label"></label>
+            <label id="selected-city-label"></label>
         </div>
         <div id="cities-container">
             <!-- HERE WE WILL SHOW THE CITY NEIGHBOURS / ALL CITIES IF ROUTE IS EMPTY -->

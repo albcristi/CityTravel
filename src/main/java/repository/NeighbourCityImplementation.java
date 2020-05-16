@@ -9,8 +9,10 @@ import java.util.List;
 
 public class NeighbourCityImplementation implements NeighbourCityRepository {
     private Connection connection;
-
-    public NeighbourCityImplementation(){
+    private CityRepository cityRepository;
+    public NeighbourCityImplementation()
+    {
+        cityRepository = new CityRepositoryImp();
         establishConnection();
     }
 
@@ -27,6 +29,8 @@ public class NeighbourCityImplementation implements NeighbourCityRepository {
     @Override
     @SneakyThrows
     public List<City> getCityNeighbours(Integer city_id) {
+        if(city_id < 0)
+            return cityRepository.getAll();
         if(connection == null)
             establishConnection();
         //retrieve cities that are neighbours of the

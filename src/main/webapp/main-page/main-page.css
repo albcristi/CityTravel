@@ -70,3 +70,14 @@ div#l-cont-2 {
     margin-top: 3%;
     margin-left: 10%;
 }
+
+#current-city-container{
+    margin-left: 22%;
+    margin-top: 2%;
+}
+
+#current-city-label, #selected-city-label{
+    font-family: Monospaced;
+    font-size: 40px;
+    color: whitesmoke;
+}
