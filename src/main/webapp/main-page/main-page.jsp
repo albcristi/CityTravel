@@ -16,5 +16,34 @@
             <label id="log-out-button">Log Out</label>
         </div>
     </div>
+    <div class="main-container">
+        <div id="current-city-container">
+            <!-- This Label will show the Current City / Station -->
+            <label id="current-city-label"></label>
+        </div>
+        <div class="navigation-container">
+            <!-- Here we should have the following buttons:
+                o previous : go back to a given station
+                o next: only if a neighbour station has
+                  been selected, otherwise no action
+                o generate route: if user wants to see
+                 the created route -- ONLY IF AT LEAST
+                 ONE CITY HAS BEEN SELECTED
+            -->
+            <div id="previous-cont">
+                <label id="previous-button">Go back to station</label>
+                <input id="prev-city-input"></input>
+            </div>
+            <div id="next-container">
+                 <label id="next-button">Add to Route</label>
+            </div>
+            <div id="generate-route-container">
+                <label id="generate-route">Generate Route</label>
+            </div>
+        </div>
+        <div id="cities-container">
+            <!-- HERE WE WILL SHOW THE CITY NEIGHBOURS / ALL CITIES IF ROUTE IS EMPTY -->
+        </div>
+    </div>
 </body>
 </html>

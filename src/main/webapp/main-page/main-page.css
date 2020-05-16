@@ -16,7 +16,7 @@ body{
 div#l-cont-1 {
     margin-left: 70%;
     font-size: 30;
-    font-family: Calibri;
+    font-family: Monospaced;
     padding-right: 2%;
     border-right: 2px black solid;
 }
@@ -31,4 +31,42 @@ div#l-cont-2 {
 
 #l-cont-2:hover{
     background-color: darkgray;
+}
+
+.navigation-container {
+    display: flex;
+    flex-direction: row;
+    height: 20%;
+    margin-top: 10%;
+    margin-left: 22%;
+    margin-right: 10%;
+    background-color: gainsboro;
+    border-radius: 10px;
+    opacity: 45%;
+}
+
+
+.navigation-container div:hover{
+    background-color: darkgray;
+}
+
+.navigation-container div label{
+    font-size: 30px;
+    font-family: Monospaced;
+    color: gray;
+}
+
+.navigation-container div {
+    padding-top: 5%;
+    margin-left: 4%;
+    padding-left: 1%;
+    padding-right: 1%;
+    border-radius: 8px;
+    width: 33%;
+}
+
+.navigation-container input {
+    height: 50%;
+    margin-top: 3%;
+    margin-left: 10%;
 }

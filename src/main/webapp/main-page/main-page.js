@@ -47,7 +47,7 @@ $(document).ready(()=>{
         }
     );
 
-    $("#log-out-button")
+    $("#l-cont-2") // we click the div, since the label of the log-out is too small
         .click( () => {
             $.ajax({
                 url: 'http://localhost:8080/log-out-servlet',
