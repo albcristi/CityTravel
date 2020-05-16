@@ -13,4 +13,5 @@ public class UserRoute {
     private Integer id;
     private Integer user_id;
     private Integer city_id;
+    private String city_name;
 }

@@ -1,17 +1,21 @@
+
 function redirectFirstPage() {
     alert("Something went wrong...\nYou'll be redirected to the first page!");
     window.location = '../index.jsp';
 }
-function getCityNeighbours(currentCityId){
+
+function getCityNeighbours(currentCityId, myFunction = (param)=>{console.log("default function")}){
     $.ajax({
         url: 'http://localhost:8080/city-neighbours-servlet',
-        type: 'POST',
-        data: JSON.stringify({city_id: currentCityId}),
+        type: 'GET',
+        data: {city_id:currentCityId},
         dataType: 'json',
         statusCode:{
             200: function (response) {
                 console.log("getCityNeighbours: success --");
                 response.forEach( e => console.log(e));
+                //apply function
+                myFunction(response);
             },
             401:
             function () {

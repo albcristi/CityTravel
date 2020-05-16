@@ -48,5 +48,13 @@
         <url-pattern>/city-neighbours-servlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CityServlet</servlet-name>
+        <servlet-class>servlets.CityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CityServlet</servlet-name>
+        <url-pattern>/city-servlet</url-pattern>
+    </servlet-mapping>
 </web-app>
 

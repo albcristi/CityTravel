@@ -26,13 +26,13 @@ public class CityNeighboursServlet  extends HttpServlet {
 
     @Override
     @SneakyThrows
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Optional<User> userSession = authenticationService.validateUserRequest(req);
         if(userSession.isPresent()){
             // we have a session, we can retrieve data
-            JSONObject requestBody = requestHelper.readRequestBody(req);
-
-            Integer city_id = Integer.valueOf(((Long) requestBody.get("city_id")).intValue());
+            //JSONObject requestBody = requestHelper.readRequestBody(req);
+            long nr = Long.parseLong(req.getParameter("city_id"));
+            Integer city_id = ((Long) nr).intValue();
             List<City> neighbours = neighbourCityService.getCityNeighbours(city_id);
             JSONArray result = new JSONArray();
             neighbours.stream()
