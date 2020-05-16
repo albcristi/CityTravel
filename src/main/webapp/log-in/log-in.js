@@ -12,7 +12,7 @@ $(document).ready( () => {
         .click(
             function () {
                 let user_name = $("#user-name-input").val();
-                let password = $("#usr-password-p").val();
+                let password = $("#usr-password-input").val();
                 $.ajax(
                     {
                         url: 'http://localhost:8080/log-in-servlet',

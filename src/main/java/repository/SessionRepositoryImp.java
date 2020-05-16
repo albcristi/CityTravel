@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import model.Session;
 
 import java.sql.*;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -19,8 +18,8 @@ public class SessionRepositoryImp implements SessionRepository{
 
     private void establishConnection() {
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/city_travel",
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/city_travel",
                     "root","password");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -41,13 +40,15 @@ public class SessionRepositoryImp implements SessionRepository{
             preparedStatement.setString(3,session.getToken());
             preparedStatement.setInt(4,session.getId());
             preparedStatement.execute();
+            preparedStatement.close();
             return;
         }
         PreparedStatement preparedStatement = connection.prepareStatement("insert into session(user_id, token, ttl) values (?,?,?)");
         preparedStatement.setInt(1,session.getUser_id());
         preparedStatement.setString(2,session.getToken());
-        preparedStatement.setDate(3, (Date) session.getTtl());
+        preparedStatement.setDate(3, new Date(session.getTtl().getTime()));
         preparedStatement.execute();
+        preparedStatement.close();
     }
 
     @Override
@@ -66,7 +67,7 @@ public class SessionRepositoryImp implements SessionRepository{
     public Optional<Session>  getUserSession(String user_name){
         if(connection == null)
             establishConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("select s from session s " +
+        PreparedStatement preparedStatement = connection.prepareStatement("select s.* from session s " +
                 "inner join user u on s.user_id = u.id " +
                 "where u.user_name=?");
         preparedStatement.setString(1,user_name);
@@ -78,8 +79,12 @@ public class SessionRepositoryImp implements SessionRepository{
                     .ttl(resultSet.getDate("ttl"))
                     .token(resultSet.getString("token"))
                     .build();
+            preparedStatement.close();
+            resultSet.close();
             return Optional.of(session);
         }
+        preparedStatement.close();
+        resultSet.close();
         return Optional.empty();
     }
 
@@ -98,8 +103,12 @@ public class SessionRepositoryImp implements SessionRepository{
                     .ttl(resultSet.getDate("ttl"))
                     .token(resultSet.getString("token"))
                     .build();
+            preparedStatement.close();
+            resultSet.close();
             return Optional.of(session);
         }
+        preparedStatement.close();
+        resultSet.close();
         return Optional.empty();
     }
 
@@ -117,8 +126,12 @@ public class SessionRepositoryImp implements SessionRepository{
                     .ttl(resultSet.getDate("ttl"))
                     .token(resultSet.getString("token"))
                     .build();
+            preparedStatement.close();
+            resultSet.close();
             return Optional.of(session);
         }
+        preparedStatement.close();
+        resultSet.close();
         return Optional.empty();
     }
 

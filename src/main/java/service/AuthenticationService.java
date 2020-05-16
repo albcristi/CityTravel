@@ -51,7 +51,6 @@ public class AuthenticationService {
                 .user_name(user_name)
                 .user_password(password)
                 .build();
-
         userRepository.save(newUser);
         return true;
     }

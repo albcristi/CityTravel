@@ -11,5 +11,13 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/log-in-servlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>SignUpServlet</servlet-name>
+        <servlet-class>servlets.SignUpServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignUpServlet</servlet-name>
+        <url-pattern>/sign-up-servlet</url-pattern>
+    </servlet-mapping>
 </web-app>
 
