@@ -78,6 +78,7 @@ public class UserRepositoryImp implements UserRepository {
                     .user_name(resultSet.getString("user_name"))
                     .user_password(resultSet.getString("user_password"))
                     .build();
+            System.out.println(user);
             resultSet.close();
             statement.close();
             return Optional.of(user);

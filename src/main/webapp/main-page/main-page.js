@@ -25,10 +25,36 @@ function getCityNeighbours(currentCityId, myFunction = (param)=>{console.log("de
     })
 }
 
+
+function generateRouteRequest(callOnSuccess= (response)=>{console.log("default functio")
+                                                            response.forEach(e=>console.log(e))}){
+    $.ajax({
+        url: 'http://localhost:8080/user-route-servlet',
+        type: 'GET',
+        dataType: 'json',
+        statusCode:{
+            200: function (response) {
+               callOnSuccess(response);
+            },
+            401: function () {
+                redirectFirstPage();
+            }
+        }
+    })
+}
+
+
+function loadUserRouteStatus(){
+
+}
+
 $(document).ready(()=>{
     var user_name = '';
     var user_id = '';
-    getCityNeighbours(1);
+    var currentCityJsonObject = null;
+
+    loadUserRouteStatus()
+    // GET INFORMATION ABOUT USER
     $.ajax({
         url: 'http://localhost:8080/user-session-servlet',
         type: 'GET',
@@ -47,6 +73,7 @@ $(document).ready(()=>{
         }
     );
 
+    // LOG OUT: CLICKED EVENT HANDLER
     $("#l-cont-2") // we click the div, since the label of the log-out is too small
         .click( () => {
             $.ajax({
@@ -61,4 +88,9 @@ $(document).ready(()=>{
             });
         });
 
+    // GENERATE ROUTE: CLICKED EVENT HANDLER
+    $("#generate-route-container")
+        .click(() =>{
+            generateRouteRequest(); // TODO: ADD CALL-BACK FUNCTION
+        })
 });

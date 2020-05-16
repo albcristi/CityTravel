@@ -27,6 +27,7 @@ public class UserRouteServlet extends HttpServlet {
         if(sessionUser.isPresent()){
             //yay..
             JSONArray jsonArray = new JSONArray();
+            System.out.println(sessionUser.get());
             userRouteService.getUserRoutes(sessionUser.get().getId())
                     .stream()
                     .map(UserRoute::toJsonFormat)
@@ -58,6 +59,7 @@ public class UserRouteServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Optional<User> userSession = authenticationService.validateUserRequest(req);
         if(userSession.isPresent()){
+            System.out.println(req.getCookies());
             Integer city_id = Integer.parseInt(req.getParameter("city_id"));
             Integer user_id = userSession.get().getId();
             Boolean result = userRouteService.removeFromUserRoute(user_id,city_id);

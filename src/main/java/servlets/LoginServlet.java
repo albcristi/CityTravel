@@ -34,6 +34,7 @@ public class LoginServlet extends HttpServlet {
         if(authenticationService.log_in(user_name,password)){
             // log in is a success
             String sessionString = authenticationService.createUserSession(user_name);
+            System.out.println(sessionString);
             Cookie cookie = new Cookie("session", sessionString);
             response.addCookie(cookie);
             cookie.setMaxAge(8000);

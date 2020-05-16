@@ -66,6 +66,7 @@ public class AuthenticationService {
         Optional<Session> sessionOptional = sessionRepository.getUserSession(userName);
         if(sessionOptional.isPresent()){
             Session session = sessionOptional.get();
+            session.setUser_id(user.get().getId());
             session.setToken(generateSessionToken());
             session.setTtl(DateUtils.addHours(new Date(),2));
             sessionRepository.save(session);

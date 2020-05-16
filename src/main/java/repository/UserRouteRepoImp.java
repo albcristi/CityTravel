@@ -31,8 +31,10 @@ public class UserRouteRepoImp implements UserRouteRepository {
             establishConnection();
         PreparedStatement statement = connection.prepareStatement(
                 "select r.*, c2.name as 'cname' from userroute r " +
-                        "inner join city c2 on r.city_id = c2.id"
+                        "inner join city c2 on r.city_id = c2.id "+
+                        "where r.user_id=?"
         );
+        statement.setInt(1,user_id);
         ResultSet resultSet =statement.executeQuery();
         List<UserRoute> userRoutes = new ArrayList<>();
         while (resultSet.next()) {

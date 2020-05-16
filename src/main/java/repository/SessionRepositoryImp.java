@@ -103,6 +103,7 @@ public class SessionRepositoryImp implements SessionRepository{
                     .ttl(resultSet.getDate("ttl"))
                     .token(resultSet.getString("token"))
                     .build();
+            System.out.println(session);
             preparedStatement.close();
             resultSet.close();
             return Optional.of(session);
