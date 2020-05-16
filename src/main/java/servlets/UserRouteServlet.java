@@ -53,4 +53,18 @@ public class UserRouteServlet extends HttpServlet {
             requestHelper.writeUnauthorizedResponse(resp);
         }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Optional<User> userSession = authenticationService.validateUserRequest(req);
+        if(userSession.isPresent()){
+            Integer city_id = Integer.parseInt(req.getParameter("city_id"));
+            Integer user_id = userSession.get().getId();
+            Boolean result = userRouteService.removeFromUserRoute(user_id,city_id);
+            requestHelper.writeBody(resp, HttpServletResponse.SC_OK,result.toString());
+        }
+        else {
+            requestHelper.writeUnauthorizedResponse(resp);
+        }
+    }
 }
