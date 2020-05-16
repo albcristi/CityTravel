@@ -1,8 +1,30 @@
-
+function redirectFirstPage() {
+    alert("Something went wrong...\nYou'll be redirected to the first page!");
+    window.location = '../index.jsp';
+}
+function getCityNeighbours(currentCityId){
+    $.ajax({
+        url: 'http://localhost:8080/city-neighbours-servlet',
+        type: 'POST',
+        data: JSON.stringify({city_id: currentCityId}),
+        dataType: 'json',
+        statusCode:{
+            200: function (response) {
+                console.log("getCityNeighbours: success --");
+                response.forEach( e => console.log(e));
+            },
+            401:
+            function () {
+                redirectFirstPage()
+            }
+        }
+    })
+}
 
 $(document).ready(()=>{
     var user_name = '';
     var user_id = '';
+    getCityNeighbours(1);
     $.ajax({
         url: 'http://localhost:8080/user-session-servlet',
         type: 'GET',
@@ -15,8 +37,7 @@ $(document).ready(()=>{
                     .textContent = user_name;
             },
             401: function () {
-                alert("Something went wrong...");
-                window.location = '../index.jsp';
+                redirectFirstPage()
             }
         }
         }

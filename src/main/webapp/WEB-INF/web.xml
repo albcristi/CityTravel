@@ -39,6 +39,14 @@
         <url-pattern>/user-session-servlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CityNeighboursServlet</servlet-name>
+        <servlet-class>servlets.CityNeighboursServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CityNeighboursServlet</servlet-name>
+        <url-pattern>/city-neighbours-servlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>
 
