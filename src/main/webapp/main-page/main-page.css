@@ -103,3 +103,20 @@ div#l-cont-2 {
     background-color: lightblue;
     border: 2px cadetblue solid;
 }
+
+
+#current-city-container{
+    display: flex;
+    flex-direction: column;
+}
+
+#msgdiv{
+    margin-left: 40%;
+
+}
+#infoMessageCitiesContainer{
+    font-family: Monospaced;
+    color: darkslategrey;
+    font-size: 30px;
+}
+

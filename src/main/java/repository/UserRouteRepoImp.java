@@ -71,15 +71,18 @@ public class UserRouteRepoImp implements UserRouteRepository {
         if(connection==null)
             establishConnection();
         PreparedStatement statement1 = connection
-                .prepareStatement("select max(r.id) from userroute r where r.city_id=? and r.user_id=?");
+                .prepareStatement("select max(r.id) as 'mid' from userroute r where r.city_id=? and r.user_id=?");
         statement1.setInt(1,city_id);
         statement1.setInt(2,user_id);
-        Integer id =statement1.executeUpdate();
+        ResultSet s = statement1.executeQuery();
+        Integer id = 2000000;
+        if(s.next())
+            id=s.getInt("mid");
         PreparedStatement statement = connection.prepareStatement(
-                "delete from userroute where id>=? and user_id=?"
+                "delete from userroute where id>? and user_id=?"
         );
         statement.setInt(1,id);
         statement.setInt(2,user_id);
-        return statement.execute();
+        return statement.executeUpdate() > 0;
     }
 }

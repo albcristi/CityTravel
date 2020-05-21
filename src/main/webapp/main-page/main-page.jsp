@@ -43,6 +43,9 @@
             <label id="current-city-label"></label>
             <label id="selected-city-label"></label>
         </div>
+        <div id="msgdiv">
+            <p id="infoMessageCitiesContainer">Neighbour cities:</p>
+        </div>
         <div id="cities-container">
             <!-- HERE WE WILL SHOW THE CITY NEIGHBOURS / ALL CITIES IF ROUTE IS EMPTY -->
         </div>

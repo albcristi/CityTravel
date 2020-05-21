@@ -49,11 +49,17 @@ function generateRouteRequest(callOnSuccess= (response)=>{console.log("default f
 function loadUserRouteStatus(){
     generateRouteRequest(
         (response) => {
+            $("#current-city-label").text("");
+            $("#selected-city-label").text("");
+            $("#selected-city-label").removeAttr("class");
+            $("#cities-container").children()
+                .remove();
             if(response.length === 0){
                 // CASE WHEN USER HAS NO ROUTE INITIALISED
                 // we need to show all available cities/stations
+
                 getCityNeighbours(-1, (response) => {
-                    showStationInformation("","current-city-label","Select the Start Station");
+                    showStationInformation({city_name: "", city_id:-1},"current-city-label","Select the Start Station");
                     generateList(response, "cities-container");
                 });
                 return;
@@ -61,7 +67,7 @@ function loadUserRouteStatus(){
             // CASE WHEN USER HAS SOME STATIONS IN HIS ROUTE
             // SHOW CURRENT STATION INFORMATION AND STATION
             // NEIGHBOURS
-            response.sort((el1,el2)=>el2.id-el1.id);
+            response.sort((el1,el2)=>el2.route_id-el1.route_id);
             window.currentCity = response[0];
             // SHOW CURRENT STATION
             showStationInformation(response[0],"current-city-label","Current Station");
@@ -108,8 +114,77 @@ function showStationInformation(station, elementID, beforeMessage){
 
 // ADDS THE SELECTED CITY TO THE USER ROUTE
 function addCityToRoute(cityId){
-    //todo: IMPLEMENT
+    $.ajax({
+        url: 'http://localhost:8080/user-route-servlet',
+        type: 'POST',
+        data: {city_id: cityId},
+        dataType: 'json',
+        statusCode:{
+            200:
+                function () {
+                    console.log("success");
+                    loadUserRouteStatus();
+                },
+            401: function () {
+                redirectFirstPage();
+            }
+        }
+    });
+
 }
+
+// MOVES BACK USER TO A CITY FROM ITS ROUTE
+function goBackToStation(city_name){
+    $.ajax({
+        url: 'http://localhost:8080/user-route-servlet',
+        type: 'GET',
+        dataType: 'json',
+        statusCode:{
+            200:
+                function (response) {
+                  let cityID = null;
+                  response.sort((el1,el2)=>el1.route_id - el2.route_id);
+                  response.forEach(
+                      el => {
+                          if(el.city_name === city_name)
+                              cityID = el.city_id;
+                      }
+                  );
+                  if(cityID===null){
+                      alert("City not found in your route!Try again!");
+                      return;
+                  }
+                  $.ajax(
+                      {
+                          url: 'http://localhost:8080/user-route-servlet?city_id='+cityID,
+                          type: 'DELETE',
+                          data: {city_id: cityID},
+                          dataType: 'json',
+                          statusCode: {
+                              200: function (result) {
+                                    if(result===true){
+                                        alert(`Moved back to station:${city_name}`);
+                                        loadUserRouteStatus();
+                                        return;
+                                    }
+                                    alert("This is your current station!");
+                                    loadUserRouteStatus();
+                              },
+                              401: function () {
+                                    redirectFirstPage();
+                              }
+                          }
+                      }
+                  )
+
+                },
+            401: function () {
+                redirectFirstPage();
+            }
+        }
+    });
+}
+
 $(document).ready(()=>{
     var user_name = '';
     var user_id = '';
@@ -158,6 +233,7 @@ $(document).ready(()=>{
             generateRouteRequest(); // TODO: ADD CALL-BACK FUNCTION
         });
 
+    // CLICK EVENT HANDLER FOR ADDING A CITY/STATION TO THE ROUTE
     $("#next-container")
         .click(()=>{
             let cityClassId = $("#selected-city-label").attr("class");
@@ -166,5 +242,16 @@ $(document).ready(()=>{
                 return;
             }
             addCityToRoute(cityClassId);
+        });
+
+    // CLICK EVENT HANDLER FOR GOING BACK TO AN EXISTING CITY/STATION
+    $("#previous-button")
+        .click(()=>{
+            let userInputCity = $("#prev-city-input").val();
+            if(userInputCity.length === 0){
+                alert("Please enter a city name in order to move back");
+                return;
+            }
+            goBackToStation(userInputCity);
         })
 });

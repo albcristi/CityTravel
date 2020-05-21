@@ -3,6 +3,7 @@ package servlets;
 import model.City;
 import model.User;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import service.AuthenticationService;
 import service.CityService;
 
@@ -36,4 +37,5 @@ public class CityServlet extends HttpServlet {
             requestHelper.writeUnauthorizedResponse(resp);
         }
     }
+
 }

@@ -44,8 +44,8 @@ public class UserRouteServlet extends HttpServlet {
         Optional<User> sessionUser = authenticationService.validateUserRequest(req);
         if(sessionUser.isPresent()){
             //yay..
-            JSONObject reqBody = requestHelper.readRequestBody(req);
-            Integer city_id = Integer.parseInt( (String) reqBody.get("city_id"));
+
+            Integer city_id = Integer.parseInt( (String) req.getParameter("city_id"));
             Boolean res = userRouteService.saveRoute(sessionUser.get().getId(), city_id);
             requestHelper.writeBody(resp, HttpServletResponse.SC_OK,res.toString());
 
