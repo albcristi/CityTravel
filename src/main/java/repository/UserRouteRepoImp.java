@@ -70,11 +70,16 @@ public class UserRouteRepoImp implements UserRouteRepository {
     public Boolean removeCityFromUserRoute(Integer user_id, Integer city_id) {
         if(connection==null)
             establishConnection();
+        PreparedStatement statement1 = connection
+                .prepareStatement("select max(r.id) from userroute r where r.city_id=? and r.user_id=?");
+        statement1.setInt(1,city_id);
+        statement1.setInt(2,user_id);
+        Integer id =statement1.executeUpdate();
         PreparedStatement statement = connection.prepareStatement(
-                "delete from userroute where user_id=? and city_id=?"
+                "delete from userroute where id>=? and user_id=?"
         );
-        statement.setInt(1,user_id);
-        statement.setInt(2,city_id);
+        statement.setInt(1,id);
+        statement.setInt(2,user_id);
         return statement.execute();
     }
 }

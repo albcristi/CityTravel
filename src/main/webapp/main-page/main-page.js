@@ -87,14 +87,29 @@ function generateList(response, citiesContainer) {
     }
     document.getElementById(citiesContainer)
         .appendChild(listItem);
+    $("li").unbind("click");
+
+    $("li")
+        .click(function (){
+            let stationId = $(this).attr("id");
+            let stationName = $(this).text();
+            let station = {city_name: stationName, city_id: stationId};
+            showStationInformation(station,"selected-city-label","Selected Station");
+        })
 }
 
 // ADDS TEXT TO THE ELEMENT HAVING THE SPECIFIED ID
 function showStationInformation(station, elementID, beforeMessage){
+    console.log(station);
     document.getElementById(elementID)
         .textContent = `${beforeMessage}: ${station.city_name}`;
+    document.getElementById(elementID).setAttribute("class",station.city_id);
 }
 
+// ADDS THE SELECTED CITY TO THE USER ROUTE
+function addCityToRoute(cityId){
+    //todo: IMPLEMENT
+}
 $(document).ready(()=>{
     var user_name = '';
     var user_id = '';
@@ -141,5 +156,15 @@ $(document).ready(()=>{
     $("#generate-route-container")
         .click(() =>{
             generateRouteRequest(); // TODO: ADD CALL-BACK FUNCTION
+        });
+
+    $("#next-container")
+        .click(()=>{
+            let cityClassId = $("#selected-city-label").attr("class");
+            if(cityClassId === undefined){
+                alert("You need to select a station, in order to be able to add it to your Route");
+                return;
+            }
+            addCityToRoute(cityClassId);
         })
 });

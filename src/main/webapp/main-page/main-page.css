@@ -53,7 +53,7 @@ div#l-cont-2 {
 .navigation-container div label{
     font-size: 30px;
     font-family: Monospaced;
-    color: gray;
+    color: darkslategrey;
 }
 
 .navigation-container div {
@@ -69,6 +69,7 @@ div#l-cont-2 {
     height: 50%;
     margin-top: 3%;
     margin-left: 10%;
+
 }
 
 #current-city-container{
@@ -79,5 +80,26 @@ div#l-cont-2 {
 #current-city-label, #selected-city-label{
     font-family: Monospaced;
     font-size: 40px;
-    color: whitesmoke;
+    color: darkslategrey;
+}
+
+#cities-container{
+    margin-left: 35%;
+    margin-right: 35%;
+    border-radius: 10px;
+}
+
+#cities-container li {
+    list-style: none;
+    font-family: Monospaced;
+    font-size: 30px;
+    background-color: whitesmoke;
+    opacity: 50%;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 1%;
+}
+#cities-container li:hover{
+    background-color: lightblue;
+    border: 2px cadetblue solid;
 }
