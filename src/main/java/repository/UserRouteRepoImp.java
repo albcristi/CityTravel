@@ -48,7 +48,7 @@ public class UserRouteRepoImp implements UserRouteRepository {
             );
         }
         resultSet.close();
-        statement.close()
+        statement.close();
         return userRoutes;
     }
 
