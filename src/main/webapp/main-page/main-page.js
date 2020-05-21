@@ -52,8 +52,20 @@ function loadUserRouteStatus(){
             $("#current-city-label").text("");
             $("#selected-city-label").text("");
             $("#selected-city-label").removeAttr("class");
+            $("#infoMessageCitiesContainer").text("Neighbour Stations:")
             $("#cities-container").children()
                 .remove();
+            $("#next-container").unbind("click");
+            $("#next-container")
+                .click(()=>{
+                    let cityClassId = $("#selected-city-label").attr("class");
+                    if(cityClassId === undefined){
+                        alert("You need to select a station, in order to be able to add it to your Route");
+                        return;
+                    }
+                    addCityToRoute(cityClassId);
+                });
+
             if(response.length === 0){
                 // CASE WHEN USER HAS NO ROUTE INITIALISED
                 // we need to show all available cities/stations
@@ -185,6 +197,19 @@ function goBackToStation(city_name){
     });
 }
 
+function showFinalRoute(stations){
+    $("#cities-container ul").remove();
+    $("#infoMessageCitiesContainer").text("Your Generated Route");
+    generateList(stations, "cities-container");
+    stations.sort((el1,el2)=>el1.route_id-el2.route_id);
+    console.log(stations);
+    $("li").unbind("click");
+    $("#current-city-label").text(`Start Station: ${stations[0].city_name}`);
+    $("#selected-city-label").text(`End Station: ${stations[stations.length-1].city_name}`);
+    $("#selected-city-label").removeAttr("class");
+    $("#next-container").unbind("click");
+}
+
 $(document).ready(()=>{
     var user_name = '';
     var user_id = '';
@@ -230,7 +255,7 @@ $(document).ready(()=>{
     // GENERATE ROUTE: CLICKED EVENT HANDLER
     $("#generate-route-container")
         .click(() =>{
-            generateRouteRequest(); // TODO: ADD CALL-BACK FUNCTION
+            generateRouteRequest(showFinalRoute); // TODO: ADD CALL-BACK FUNCTION
         });
 
     // CLICK EVENT HANDLER FOR ADDING A CITY/STATION TO THE ROUTE
